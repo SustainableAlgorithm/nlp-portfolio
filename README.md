@@ -36,6 +36,6 @@ tests/
 
 ## Review status
 
-Five smoke tests passed in a clean temporary Python workspace. See [CODE_REVIEW.md](reports/CODE_REVIEW.md) for coverage, limitations, and next improvements. These tests demonstrate basic behavior only; they are not a benchmark or evidence of real-world model performance.
+Eight smoke tests passed in a clean temporary Python workspace, including n-gram scoring and Viterbi edge cases. See [CODE_REVIEW.md](reports/CODE_REVIEW.md) for coverage, limitations, and next improvements. These tests demonstrate basic behavior only; they are not a benchmark or evidence of real-world model performance.
 
 This repository is private while the code and documentation are reviewed. A separate public showcase summarizes the techniques without exposing course materials or private artifacts.
