@@ -11,7 +11,9 @@ def export_query(database_url: str, query: str, output_path: str) -> int:
     engine = create_engine(database_url, pool_pre_ping=True)
     try:
         with engine.connect() as connection:
-            frame = pd.read_sql_query(text(query), connection)
+            with connection.begin():
+                connection.exec_driver_sql("SET TRANSACTION READ ONLY")
+                frame = pd.read_sql_query(text(query), connection)
         frame.to_csv(output_path, index=False)
         return len(frame)
     finally:
