@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Try the model · Titanic{% endblock %}
+{% block content %}
+<section class="form-card">
+  <p class="eyebrow">INTERACTIVE DEMO</p>
+  <h1>Estimate a model probability</h1>
+  <p>Enter example passenger characteristics to see the trained model's output.</p>
+  {% if error %}<div class="alert" role="alert">{{ error }}</div>{% endif %}
+  <form method="post" action="{{ url_for('predict') }}">
+    <label for="age">Age</label>
+    <input id="age" name="age" type="number" min="0" max="100" step="0.1" required>
+    <label for="sex">Sex (as recorded in the historical dataset)</label>
+    <select id="sex" name="sex" required>
+      <option value="">Choose…</option>
+      <option value="female">Female</option>
+      <option value="male">Male</option>
+    </select>
+    <label for="pclass">Passenger class</label>
+    <select id="pclass" name="pclass" required>
+      <option value="">Choose…</option>
+      <option value="1">1st class</option>
+      <option value="2">2nd class</option>
+      <option value="3">3rd class</option>
+    </select>
+    <button type="submit">Calculate model estimate</button>
+  </form>
+  {% if prediction is not none %}
+  <div class="result" role="status">
+    <h2>Model estimate: {{ prediction }}%</h2>
+    <p>This is the model's estimated probability for the supplied inputs, not a guarantee or causal conclusion.</p>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}
