@@ -6,12 +6,14 @@ Review date: 2026-10-24
 
 The current committed source and test logic were run in a clean temporary Python workspace with the listed modules and installed dependencies.
 
-**Result: 5 tests passed.**
+**Result: 8 tests passed after the hardening changes below.**
 
 Coverage includes:
 - A tiny synthetic sentiment classification example for the Logistic Regression pipeline.
 - Smoothed unigram probabilities for seen and unseen words.
 - Smoothed n-gram probabilities for an unseen token.
+- N-gram perplexity and next-token ranking.
+- Viterbi rejection of impossible sequences and invalid probabilities.
 - Viterbi decoding on a two-state toy example.
 - CKY parsing for a binary grammar and rejection of a sentence without a complete parse.
 
@@ -27,13 +29,13 @@ These are smoke tests of core behavior, not a full benchmark or proof of general
 ### Unigram and n-gram models
 - Additive smoothing gives non-zero probability to unseen tokens.
 - The tokenizer is a baseline Unicode-aware regular expression, not a language-specific tokenizer. It should not be presented as sufficient Japanese segmentation.
-- The n-gram model currently estimates conditional probabilities; it does not include perplexity calculation, backoff/interpolation, or a next-token ranking helper despite the broader language-modeling goal. These would be useful additions before describing it as a more complete language-modeling toolkit.
+- The n-gram model now includes basic perplexity and next-token ranking helpers. It still does not implement backoff/interpolation, and its tokenizer remains intentionally simple.
 - Model probabilities assume the caller supplies a context in the same token form used during training.
 
 ### HMM Viterbi decoder
 - Uses log probabilities and returns a highest-scoring path for the supplied start, transition, and emission probabilities.
 - The caller must smooth missing emissions/transitions when appropriate.
-- It does not validate that probability rows sum to one, and fully impossible paths can still result in a returned path with negative-infinity score. Add validation/explicit no-path handling before using it beyond a toy demonstration.
+- It now validates individual probability values are between zero and one and raises an error when no valid path exists. It does not validate that probability rows sum to one; use beyond a toy demonstration requires further tests.
 
 ### CKY parser
 - Implements chart parsing for binary context-free grammars in Chomsky Normal Form.
