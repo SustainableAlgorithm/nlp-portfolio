@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Titanic Survival Model{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('about') }}">Model Deployment Demo</a>
+    <nav aria-label="Main navigation">
+      <a href="{{ url_for('about') }}">About</a>
+      <a href="{{ url_for('prediction_form') }}">Try the model</a>
+    </nav>
+  </header>
+  <main>{% block content %}{% endblock %}</main>
+  <footer>Educational demonstration · Not for decisions about real people</footer>
+</body>
+</html>
