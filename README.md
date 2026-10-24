@@ -26,6 +26,8 @@ The examples use small synthetic fixtures in tests. They do not bundle course da
 
 The independent PCA/t-SNE portfolio implementation is in [`dtsc680/assignment1_pca_tsne/`](dtsc680/assignment1_pca_tsne/README.md). See its [review and local results](dtsc680/assignment1_pca_tsne/REVIEW.md). The original course notebook, CSV, pickle outputs, and environment files are intentionally excluded.
 
+The independent neural-network implementation is in [`dtsc680/assignment2_neural_network/`](dtsc680/assignment2_neural_network/README.md). It demonstrates stratified splitting, training-only preprocessing, class weighting, a Keras binary classifier, and evaluation metrics. The original notebook, coronavirus dataset, pickle exports, and saved model are excluded.
+
 ## Project structure
 
 ```text
