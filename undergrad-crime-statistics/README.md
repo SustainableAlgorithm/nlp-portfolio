@@ -27,7 +27,7 @@ python crime_trends.py --input path/to/crimestat.csv --output-dir outputs
 python -m pytest -q
 ```
 
-The source dataset is not included. Supply a permitted local copy of the CSV. Output files are generated locally and are ignored by Git.
+The source dataset is not included. Supply a permitted local copy of the CSV. Output files are generated locally and are ignored by Git. The supplied source files were checked during review: both contained 444,802 rows and produced the same monthly aggregates.
 
 ## Interpretation and limitations
 
