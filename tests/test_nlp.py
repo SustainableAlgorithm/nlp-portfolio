@@ -44,7 +44,7 @@ def test_cky_parse_binary_grammar():
 
 
 def test_ngram_model_scores_and_ranks_next_tokens():
-    model = NGramModel(n=2, alpha=0.5).fit(["cats sleep", "cats purr", "dogs sleep"])
+    model = NGramModel(n=2, alpha=0.5).fit(["cats sleep", "cats sleep", "cats purr", "dogs sleep"])
     assert model.perplexity(["cats sleep"]) > 0
     candidates = model.next_token_candidates(["cats"], limit=2)
     assert candidates[0][0] == "sleep"
