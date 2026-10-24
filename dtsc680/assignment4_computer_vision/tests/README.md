@@ -1,0 +1,1 @@
+Run tests from this folder's parent directory with `python -m pip install -r requirements.txt` followed by `python -m pytest -q`.
