@@ -22,6 +22,10 @@ python -m pytest -q
 
 The examples use small synthetic fixtures in tests. They do not bundle course datasets or claim benchmark performance.
 
+## DTSC 680: Applied Machine Learning
+
+The independent PCA/t-SNE portfolio implementation is in [`dtsc680/assignment1_pca_tsne/`](dtsc680/assignment1_pca_tsne/README.md). See its [review and local results](dtsc680/assignment1_pca_tsne/REVIEW.md). The original course notebook, CSV, pickle outputs, and environment files are intentionally excluded.
+
 ## Project structure
 
 ```text
