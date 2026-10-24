@@ -1,15 +1,12 @@
 """Generic Hidden Markov Model Viterbi decoding using log probabilities."""
 from __future__ import annotations
-
 from math import log
 from typing import Mapping, Sequence
 
-
 def _safe_log(probability: float) -> float:
-    if probability < 0:
-        raise ValueError("probabilities cannot be negative")
+    if not 0 <= probability <= 1:
+        raise ValueError("probabilities must be between 0 and 1")
     return log(probability) if probability > 0 else float("-inf")
-
 
 def viterbi_decode(
     observations: Sequence[str],
@@ -22,11 +19,10 @@ def viterbi_decode(
 
     Missing transition/emission entries are treated as zero probability. For
     unknown observations, callers should supply a smoothed emission probability.
+    Raises ValueError if no valid state path can generate the observations.
     """
-    if not observations:
-        return [], 0.0
-    if not states:
-        raise ValueError("at least one state is required")
+    if not observations: return [], 0.0
+    if not states: raise ValueError("at least one state is required")
     score: dict[str, float] = {}
     backpointers: list[dict[str, str | None]] = []
     first_back: dict[str, str | None] = {}
@@ -43,15 +39,16 @@ def viterbi_decode(
             best_score, best_previous = max(candidates, key=lambda item: item[0])
             next_score[current] = best_score
             back[current] = best_previous
-        score, back = next_score, back
+        score = next_score
         backpointers.append(back)
     final_state = max(states, key=lambda state: score[state])
     best_log_probability = score[final_state]
+    if best_log_probability == float("-inf"):
+        raise ValueError("no valid state path can generate the observations")
     path = [final_state]
     for position in range(len(observations) - 1, 0, -1):
         previous = backpointers[position][path[-1]]
-        if previous is None:
-            raise RuntimeError("invalid backpointer while reconstructing path")
+        if previous is None: raise RuntimeError("invalid backpointer while reconstructing path")
         path.append(previous)
     path.reverse()
     return path, best_log_probability
