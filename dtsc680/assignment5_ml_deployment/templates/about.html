@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}About · Titanic Model{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">MACHINE LEARNING · MODEL DEPLOYMENT</p>
+  <h1>From trained model to usable application</h1>
+  <p>This project demonstrates how a logistic-regression pipeline can be trained on historical Titanic passenger data, saved locally, and served through a Flask web interface.</p>
+  <a class="button" href="{{ url_for('prediction_form') }}">Explore the demo</a>
+</section>
+<section class="panel">
+  <h2>What happens behind the scenes?</h2>
+  <ol>
+    <li>A local training script prepares age, sex, and passenger class.</li>
+    <li>A scikit-learn pipeline imputes missing values and encodes categorical features.</li>
+    <li>The trained pipeline is saved as a local joblib artifact.</li>
+    <li>Flask validates the form input and returns the model's estimated survival probability.</li>
+  </ol>
+</section>
+<section class="notice">
+  <h2>Important limitations</h2>
+  <p>This is an educational model using historical data. Its probability is not causal, not a guarantee, and not a statement about any individual. The data and features have important historical and ethical limitations.</p>
+</section>
+{% endblock %}
