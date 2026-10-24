@@ -1,0 +1,31 @@
+name: DTSC 670 project tests
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "dtsc670/**"
+      - ".github/workflows/dtsc670-tests.yml"
+  pull_request:
+    branches: [main, master]
+    paths:
+      - "dtsc670/**"
+      - ".github/workflows/dtsc670-tests.yml"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: dtsc670/requirements.txt
+      - name: Install dependencies
+        run: python -m pip install -r dtsc670/requirements.txt
+      - name: Run DTSC 670 tests
+        run: python -m pytest -q dtsc670/tests
