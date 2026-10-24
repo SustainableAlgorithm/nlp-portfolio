@@ -34,8 +34,13 @@ def make_classifier(kind: str = "logistic", *, max_features: int = 50_000) -> Pi
 
 def evaluate_classifier(model: Pipeline, texts: Iterable[str], labels: Iterable[str]) -> ClassificationMetrics:
     """Evaluate predictions against labels and return serializable metrics."""
+    text_list = list(texts)
     y_true = list(labels)
-    y_pred = model.predict(list(texts))
+    if not text_list or not y_true:
+        raise ValueError("texts and labels must be non-empty")
+    if len(text_list) != len(y_true):
+        raise ValueError("texts and labels must have the same length")
+    y_pred = model.predict(text_list)
     labels_sorted = sorted(set(y_true) | set(y_pred))
     return ClassificationMetrics(
         accuracy=float(accuracy_score(y_true, y_pred)),
